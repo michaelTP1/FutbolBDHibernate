@@ -3,7 +3,6 @@ package mjtp.java.hibernate.tablas;
 import java.io.Serializable;
 import java.util.Date;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -53,6 +52,18 @@ public class Contratos implements Serializable {
 	}
 
 	
+	public Futbolistas getFutbolista() {
+		return futbolista;
+	}
+	public void setFutbolista(Futbolistas futbolista) {
+		this.futbolista = futbolista;
+	}
+	public Equipos getEquipo() {
+		return equipo;
+	}
+	public void setEquipo(Equipos equipo) {
+		this.equipo = equipo;
+	}
 	public Date getFechaInicio() {
 		return fechaInicio;
 	}

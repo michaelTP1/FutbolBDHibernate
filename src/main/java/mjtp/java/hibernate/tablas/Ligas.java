@@ -26,6 +26,14 @@ public class Ligas implements Serializable {
 	@Column(columnDefinition = "char(50)")
 	private String nomLiga;
 
+	public List<Equipos> getLibros() {
+		return libros;
+	}
+
+	public void setLibros(List<Equipos> libros) {
+		this.libros = libros;
+	}
+
 	public String getCodLiga() {
 		return codLiga;
 	}

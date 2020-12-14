@@ -32,7 +32,15 @@ public class EquiposObservaciones implements Serializable{
 	
 	
 	@Column(length=200)
-	private String obsevaciones;
+	private String obsevaciones="";
+
+	public Equipos getEquipo() {
+		return equipo;
+	}
+
+	public void setEquipo(Equipos equipo) {
+		this.equipo = equipo;
+	}
 
 	public int getCodEquipo() {
 		return codEquipo;

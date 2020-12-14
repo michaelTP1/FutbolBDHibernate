@@ -27,6 +27,14 @@ public class Futbolistas implements Serializable {
 	@Column(length=40)
 	private String nacionalidad;
 
+	public List<Contratos> getContratos() {
+		return contratos;
+	}
+
+	public void setContratos(List<Contratos> contratos) {
+		this.contratos = contratos;
+	}
+
 	@OneToMany(cascade=CascadeType.ALL,	fetch=FetchType.EAGER, mappedBy="futbolista")
 			private List<Contratos> contratos = new ArrayList<Contratos>();
 	
