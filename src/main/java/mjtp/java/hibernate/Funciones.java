@@ -110,6 +110,7 @@ public class Funciones {
 		Transaction transaction = session.beginTransaction();
 
 		session.save(liga);
+		
 
 		transaction.commit();
 		session.close();
@@ -170,6 +171,28 @@ public class Funciones {
 		session.close();
 	}
 
+	public static void updateEquipo(Equipos equipo) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		Transaction transaction = session.beginTransaction();
+
+		session.update(equipo);
+
+		transaction.commit();
+		session.close();
+	}
+	
+	public static void updateContrato(Contratos contrato) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		Transaction transaction = session.beginTransaction();
+
+		session.update(contrato);
+
+		transaction.commit();
+		session.close();
+	}
+	
 
 	public static void verEquipoObservaciones() {
 		Session sesion = HibernateUtil.getSessionFactory().openSession();

@@ -138,7 +138,7 @@ public class Main {
 					Funciones.verEquipoObservaciones();
 					break;
 				}
-				case 3:{
+				case 3: {
 					Funciones.verEquipoContratos();
 				}
 
@@ -229,10 +229,10 @@ public class Main {
 				case 1: {
 					Equipos equipo = new Equipos();
 					List<Ligas> ligas = Funciones.getLigas();
-					int aux=0;
-					int ligaIndex=0;
+					int aux = 0;
+					int ligaIndex = 0;
 					System.out.println("Seleccione una de las siguientes ligas");
-					for (Ligas liga: ligas) {
+					for (Ligas liga : ligas) {
 
 						System.out.println("------------------------------------------");
 						System.out.println(aux + "- " + liga.getNomLiga());
@@ -247,23 +247,23 @@ public class Main {
 					System.out.println("localidad:");
 					equipo.setLocalidad(entrada.nextLine());
 					System.out.println("0 si es internacional");
-					boolean internacional=(entrada.nextInt()==0) ? true:false;
+					boolean internacional = (entrada.nextInt() == 0) ? true : false;
 					equipo.setInternacional(internacional);
 					entrada.nextLine();
-					
+
 					System.out.println("Pulse 0 para añadir observaciones");
-					
-					boolean ob=(entrada.nextInt()==0) ? true:false;
+
+					boolean ob = (entrada.nextInt() == 0) ? true : false;
 					entrada.nextLine();
-					if(ob) {
-						EquiposObservaciones observacion=new EquiposObservaciones();
+					if (ob) {
+						EquiposObservaciones observacion = new EquiposObservaciones();
 						observaciones.setCodEquipo(Funciones.getEquipos().size());
 						System.out.println("Escriba la observación");
 						observacion.setObsevaciones(entrada.nextLine());
-						
+
 						equipo.setEquiposobservaciones(observacion);
 					}
-					
+
 					Funciones.insertarEquipo(equipo);
 
 					break;
@@ -275,9 +275,9 @@ public class Main {
 			case 2: {
 				System.out.println("0- eliminar equipo");
 				System.out.println("1- eliminar contrato");
-				int valor2=entrada.nextInt();
+				int valor2 = entrada.nextInt();
 				entrada.nextLine();
-				switch (valor2){
+				switch (valor2) {
 				case 0: {
 					System.out.println("introduzca el identificador del equipo a borrar");
 					try {
@@ -285,11 +285,10 @@ public class Main {
 					} catch (Exception e) {
 						System.err.println("identificador no existente");
 					}
-					
-					
+
 					break;
 				}
-				case 1:{
+				case 1: {
 					System.out.println("introduzca el identificador del contrato a borrar");
 					try {
 						Funciones.borrarContrato(entrada.nextInt());
@@ -297,15 +296,206 @@ public class Main {
 						System.err.println("identificador no existente");
 					}
 					break;
-					
+
 				}
-				
+
 				}
-				
 
 				break;
 			}
 			case 3: {
+
+				int valor3 = 0;
+				System.out.println("0- actualizar equipo");
+				System.out.println("1- actualizar contrato");
+				valor3 = entrada.nextInt();
+				entrada.nextLine();
+
+				switch (valor3) {
+				case 0: {
+					List<Equipos> equipos = Funciones.getEquipos();
+					Equipos equipoIn = new Equipos();
+					int aux = 0;
+					int equipoIndex = 0;
+					System.out.println("seleccione un equipo de la siguiente lista");
+					aux = 0;
+					for (Equipos equipo : equipos) {
+						System.out.println("------------------------------------------");
+
+						System.out.println(aux + "- " + equipo.getDatos());
+						aux++;
+					}
+					equipoIndex = entrada.nextInt();
+					entrada.nextLine();
+
+					equipoIn = equipos.get(equipoIndex);
+					System.out.println("Introduzca \"9\" para no modificar el campo");
+					List<Ligas> ligas = Funciones.getLigas();
+					aux = 0;
+					int ligaIndex = 0;
+					System.out.println("Seleccione una de las siguientes ligas");
+					for (Ligas liga : ligas) {
+
+						System.out.println("------------------------------------------");
+						System.out.println(aux + "- " + liga.getNomLiga());
+						aux++;
+					}
+					ligaIndex = entrada.nextInt();
+					equipoIn.setLiga(ligas.get(ligaIndex));
+					entrada.nextLine();
+
+					System.out.println("Nombre del equipo:");
+					String auxString = entrada.nextLine();
+					if (auxString.compareTo("9") != 0)
+						equipoIn.setNomEquipo(auxString);
+					System.out.println("localidad:");
+					auxString = entrada.nextLine();
+					if (auxString.compareTo("9") != 0)
+						equipoIn.setLocalidad(auxString);
+
+					System.out.println("0 si es internacional");
+
+					boolean internacional = (entrada.nextInt() == 0) ? true : false;
+					equipoIn.setInternacional(internacional);
+					entrada.nextLine();
+
+					System.out.println("Pulse 0 para añadir observaciones");
+
+					try {
+						boolean ob = (entrada.nextInt() == 0) ? true : false;
+						entrada.nextLine();
+						if (ob) {
+							EquiposObservaciones observacion = new EquiposObservaciones();
+							observaciones.setCodEquipo(Funciones.getEquipos().size());
+							System.out.println("Escriba la observación");
+							observacion.setObsevaciones(entrada.nextLine());
+
+							equipoIn.setEquiposobservaciones(observacion);
+						}
+					} catch (Exception e) {
+						entrada.nextLine();
+					}
+
+					Funciones.updateEquipo(equipoIn);
+
+					break;
+				}
+				case 1: {
+					List<Contratos> contratos = Funciones.getContratos();
+					Contratos contrato = new Contratos();
+
+					int aux = 0;
+					int contratoIndex = 0;
+					System.out.println("Seleccione uno de los siguientes contratos");
+					for (Contratos contratoIn : contratos) {
+
+						System.out.println("------------------------------------------");
+						System.out.println(aux + "- " + contratoIn.getDatos());
+						aux++;
+					}
+					contratoIndex = entrada.nextInt();
+					entrada.nextLine();
+					contrato = contratos.get(contratoIndex);
+
+					List<Futbolistas> futbolistas = Funciones.getFutbolistas();
+					List<Equipos> equipos = Funciones.getEquipos();
+					int futbolistaIndex = 0;
+					int equipoIndex = 0;
+					aux = 0;
+					String fechaInicio = "";
+					String fechaFin = "";
+					String auxString;
+
+					System.out.println("Introduzca \"9\" para no modificar futbolista");
+					auxString = entrada.nextLine();
+					if (0 != auxString.compareTo("9")) {
+						System.out.println("seleccione un futbolista de la siguiente lista");
+
+						for (Futbolistas futbolista : futbolistas) {
+
+							System.out.println("------------------------------------------");
+							System.out.println(aux + "- " + futbolista.getNombre());
+							aux++;
+						}
+						futbolistaIndex = entrada.nextInt();
+						contrato.setFutbolista(futbolistas.get(futbolistaIndex));
+						entrada.nextLine();
+					}
+					System.out.println("Introduzca \"9\" para no modificar equipo");
+					auxString = entrada.nextLine();
+					if (0 != auxString.compareTo("9")) {
+						System.out.println("seleccione un equipo de la siguiente lista");
+						aux = 0;
+						for (Equipos equipo : equipos) {
+							System.out.println("------------------------------------------");
+
+							System.out.println(aux + "- " + equipo.getDatos());
+							aux++;
+						}
+						equipoIndex = entrada.nextInt();
+						entrada.nextLine();
+						contrato.setEquipo(equipos.get(equipoIndex));
+						entrada.nextLine();
+					}
+					System.out.println("Introduzca \"9\" para no modificar fecha inicio");
+					auxString = entrada.nextLine();
+					if (0 != auxString.compareTo("9")) {
+						System.out.println("Fecha de inicio dd/mm/yyyy");
+						fechaInicio = entrada.nextLine();
+						while (true) {
+							try {
+
+								contrato.setFechaInicio(new SimpleDateFormat("dd/mm/yyyy").parse(fechaInicio));
+								break;
+
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+
+							}
+						}
+					}
+
+					System.out.println();
+					System.out.println("Introduzca \"9\" para no modificar fecha fin");
+					auxString = entrada.nextLine();
+					if (0 != auxString.compareTo("9")) {
+						System.out.println("Fecha fin dd/mm/yyyy");
+						fechaFin = entrada.nextLine();
+						while (true) {
+							try {
+
+								contrato.setFechaFin(new SimpleDateFormat("dd/mm/yyyy").parse(fechaFin));
+								break;
+
+							} catch (ParseException e) {
+								// TODO Auto-generated catch block
+								e.printStackTrace();
+
+							}
+						}
+					}
+					System.out.println();
+					System.out.println("Introduzca \"9\" para no modificar precio anual");
+					auxString = entrada.nextLine();
+					if (0 != auxString.compareTo("9")) {
+						System.out.println("precio anual");
+						contrato.setPrecioanual(entrada.nextInt());
+						entrada.nextLine();
+					}
+					System.out.println();
+					System.out.println("Introduzca \"9\" para no modificar precio recicion");
+					auxString = entrada.nextLine();
+					if (0 != auxString.compareTo("9")) {
+						System.out.println("precio recision");
+						contrato.setPreciorecision(entrada.nextInt());
+						entrada.nextLine();
+					}
+					Funciones.updateContrato(contrato);
+					break;
+
+				}
+				}
 
 				break;
 			}
