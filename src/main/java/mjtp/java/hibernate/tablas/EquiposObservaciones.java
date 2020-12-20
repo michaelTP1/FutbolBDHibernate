@@ -21,26 +21,13 @@ public class EquiposObservaciones implements Serializable{
 	
 
 	@Id
-	@GeneratedValue(generator = "myForeign")
-	@GenericGenerator( name = "myForeign", strategy = "foreign",
-	parameters = {@org.hibernate.annotations.Parameter(name = "property", value = "equipo")})
 	private int codEquipo;
-	
-	@OneToOne (cascade={CascadeType.PERSIST,CascadeType.REMOVE}) 
-	@PrimaryKeyJoinColumn
-	private Equipos equipo;
-	
+
 	
 	@Column(length=200)
-	private String obsevaciones="";
+	private String obsevaciones=" ";
 
-	public Equipos getEquipo() {
-		return equipo;
-	}
 
-	public void setEquipo(Equipos equipo) {
-		this.equipo = equipo;
-	}
 
 	public int getCodEquipo() {
 		return codEquipo;

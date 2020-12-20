@@ -88,5 +88,11 @@ public class Contratos implements Serializable {
 	public void setPreciorecision(int preciorecision) {
 		this.preciorecision = preciorecision;
 	}
+	public String getDatos() {
+		return "cod contrato: "+codContrato+" dni: "+futbolista.getCoddnionie()+" equipo: "+equipo.getCodEquipo()
+		+" fecha inicio: "+fechaInicio.toString()+" fecha fin: "+fechaFin.toString()
+		+" precio anual: "+precioanual+" precio recicion: "+preciorecision;
+	}
+
 	
 }

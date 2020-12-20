@@ -1,5 +1,7 @@
 package mjtp.java.hibernate;
 
+import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 
 import javax.persistence.Query;
@@ -9,6 +11,7 @@ import org.hibernate.Transaction;
 
 import mjtp.java.hibernate.tablas.Contratos;
 import mjtp.java.hibernate.tablas.Equipos;
+import mjtp.java.hibernate.tablas.EquiposObservaciones;
 import mjtp.java.hibernate.tablas.Futbolistas;
 import mjtp.java.hibernate.tablas.Ligas;
 
@@ -19,7 +22,7 @@ public class Funciones {
 
 		Transaction transaction = session.beginTransaction();
 
-		Query query = session.createQuery("from contratos");
+		Query query = session.createQuery("from Contratos");
 
 		List<Contratos> contratos = null;
 		contratos = query.getResultList();
@@ -45,6 +48,39 @@ public class Funciones {
 		return equipos;
 	}
 	
+	public static List<Futbolistas> getFutbolistas() {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		Transaction transaction = session.beginTransaction();
+
+		Query query = session.createQuery("from Futbolistas");
+
+		List<Futbolistas> futbolistas = null;
+		futbolistas = query.getResultList();
+
+		transaction.commit();
+		session.close();
+
+		return futbolistas;
+	}
+	
+	public static List<Ligas> getLigas() {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		Transaction transaction = session.beginTransaction();
+
+		Query query = session.createQuery("from Ligas");
+
+		List<Ligas> ligas = null;
+		ligas = query.getResultList();
+
+		transaction.commit();
+		session.close();
+
+		return ligas;
+	}
+	
+
 
 	public static void insertarEquipo(Equipos equipo) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
@@ -56,6 +92,18 @@ public class Funciones {
 		transaction.commit();
 		session.close();
 	}
+	
+	public static void insertarObservacion(EquiposObservaciones observacion) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+
+		Transaction transaction = session.beginTransaction();
+
+		session.save(observacion);
+
+		transaction.commit();
+		session.close();
+	}
+	
 	public static void insertarLiga(Ligas liga) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 
@@ -126,31 +174,43 @@ public class Funciones {
 	public static void verEquipoObservaciones() {
 		Session sesion = HibernateUtil.getSessionFactory().openSession();
 		sesion.beginTransaction();
-		String sel = "SELECT e.codEquipo, e.nomEquipo, e.internacional, e.localidad, eo.obsevaciones from Equipos as e  LEFT JOIN EquiposObservaciones as eo ON e.codEquipo= eo.codEquipo";
-		List<Object[]> results = sesion.createQuery(sel).getResultList();
-			System.out.println();
-		for (Object[] result : results) {
-			System.out.println("--------------------------------------------------------------------------------");
-			System.out.println(result[0]+" "+result[1]+" "+result[2]+" "+result[3]+" "+result[4]+"\n");
-			System.out.println("--------------------------------------------------------------------------------");
+
+//		List<Object[]> resultList = sesion.createQuery("from Equipos e join e.equiposobservaciones").getResultList();
+//		List<Object[]> results = resultList;
+//		
+//		for(Object[] result:results) {
+//			System.out.println(((Equipos)result[0]).getDatos()+" "+((EquiposObservaciones)result[1]).getObsevaciones());
+//		}
+//		
+		org.hibernate.Query cons = sesion.createQuery("from Equipos e inner join e.equiposobservaciones ");
+		Iterator q = ( cons).iterate();
+		while (q.hasNext()) {
+		Object[] par =(Object[]) q.next();
+		Equipos eq = (Equipos) par[0];
+		EquiposObservaciones ob = (EquiposObservaciones) par[1];
+		System. out. println (eq.getDatos()+" "+ob.getObsevaciones()); 
 		}
 		sesion.getTransaction().commit();
 		sesion.close();
-	
 	}
 	
 
 	public static void verEquipoContratos() {
 		Session sesion = HibernateUtil.getSessionFactory().openSession();
 		sesion.beginTransaction();
-		String sel = "SELECT e.codEquipo, e.nomEquipo, e.internacional, e.localidad, c.obsevaciones from Equipos as e   JOIN Contratos as c ON e.codEquipo= eo.codEquipo";
-		List<Object[]> results = sesion.createQuery(sel).getResultList();
-			System.out.println();
-		for (Object[] result : results) {
-			System.out.println("--------------------------------------------------------------------------------");
-			System.out.println(result[0]+" "+result[1]+" "+result[2]+" "+result[3]+" "+result[4]+"\n");
-			System.out.println("--------------------------------------------------------------------------------");
+		org.hibernate.Query cons = sesion.createQuery("from Equipos e inner join e.contratos ");
+		Iterator q = ( cons).iterate();
+		System.out.println();
+		System.out.println();
+		while (q.hasNext()) {
+		Object[] par =(Object[]) q.next();
+		Equipos eq = (Equipos) par[0];
+		Contratos con = (Contratos) par[1];
+		
+		System.out.println("-------------------------------------------------------------------------");
+		System. out. println (eq.getDatos()+" "+con.getDatos()); 
 		}
+		
 		sesion.getTransaction().commit();
 		sesion.close();
 	

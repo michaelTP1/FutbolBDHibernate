@@ -29,12 +29,12 @@ public class Equipos implements Serializable {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int codEquipo;
 	
-	@OneToOne (cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@OneToOne (cascade = CascadeType.ALL, fetch = FetchType.LAZY)
 	@PrimaryKeyJoinColumn 
 	private EquiposObservaciones equiposobservaciones;
 	
 	@OneToMany(cascade=CascadeType.ALL,
-			fetch=FetchType.EAGER, mappedBy="equipo")
+			fetch=FetchType.LAZY, mappedBy="equipo")
 			private List<Contratos> contratos = new ArrayList<Contratos>();
 	
 	@Column(columnDefinition="char(40)")
@@ -105,6 +105,12 @@ public class Equipos implements Serializable {
 
 	public void setInternacional(boolean internacional) {
 		this.internacional = internacional;
+	}
+	public String getDatos() {
+		return "codEquipo: "+ codEquipo+" nombre: "+nomEquipo+" liga: "+liga.getCodLiga()+" localidad: "+localidad+" internacional: "+ internacional;
+	}
+	public String getDatosObservaciones(){
+		return "codEquipo: "+ codEquipo+" nombre: "+nomEquipo+" liga: "+liga.getCodLiga()+" localidad: "+localidad+" internacional: "+ internacional+" Observaciones: "+equiposobservaciones.getObsevaciones();
 	}
 	
 }
