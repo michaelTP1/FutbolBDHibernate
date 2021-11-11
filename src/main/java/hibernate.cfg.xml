@@ -23,5 +23,7 @@
 		<mapping class="mjtp.java.hibernate.tablas.EquiposObservaciones" />
 		<mapping class="mjtp.java.hibernate.tablas.Futbolistas" />
 		<mapping class="mjtp.java.hibernate.tablas.Ligas" />
+		<mapping class="mjtp.java.hibernate.tablas.Empresa" />
+		<mapping class="mjtp.java.hibernate.tablas.Empleado" />
 	</session-factory>
 </hibernate-configuration> 

@@ -20,18 +20,18 @@ public class Ligas implements Serializable {
 	@Id
 	@Column(columnDefinition = "char(5)")
 	private String codLiga;
-	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.EAGER, mappedBy="liga")
-			private List<Equipos> libros = new ArrayList<Equipos>();
+	@OneToMany(cascade=CascadeType.ALL,fetch=FetchType.LAZY, mappedBy="liga")
+	private List<Equipos> equipos = new ArrayList<Equipos>();
 
 	@Column(columnDefinition = "char(50)")
 	private String nomLiga;
 
 	public List<Equipos> getLibros() {
-		return libros;
+		return equipos;
 	}
 
-	public void setLibros(List<Equipos> libros) {
-		this.libros = libros;
+	public void setLibros(List<Equipos> equipos) {
+		this.equipos = equipos;
 	}
 
 	public String getCodLiga() {

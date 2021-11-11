@@ -196,22 +196,14 @@ public class Funciones {
 
 	public static void verEquipoObservaciones() {
 		Session sesion = HibernateUtil.getSessionFactory().openSession();
+		
 		sesion.beginTransaction();
-
-//		List<Object[]> resultList = sesion.createQuery("from Equipos e join e.equiposobservaciones").getResultList();
-//		List<Object[]> results = resultList;
-//		
-//		for(Object[] result:results) {
-//			System.out.println(((Equipos)result[0]).getDatos()+" "+((EquiposObservaciones)result[1]).getObsevaciones());
-//		}
-//		
-		org.hibernate.Query cons = sesion.createQuery("from Equipos e inner join e.equiposobservaciones ");
-		Iterator q = ( cons).iterate();
-		while (q.hasNext()) {
-		Object[] par =(Object[]) q.next();
-		Equipos eq = (Equipos) par[0];
-		EquiposObservaciones ob = (EquiposObservaciones) par[1];
-		System. out. println (eq.getDatos()+" "+ob.getObsevaciones()); 
+		
+		
+		Query cons = sesion.createQuery("from Equipos");
+		List<Equipos>equipos=cons.getResultList();
+		for (Equipos equipos2 : equipos) {
+			System.out.println(equipos2.getNomEquipo()+" "+equipos2.getEquiposobservaciones().getObsevaciones());
 		}
 		sesion.getTransaction().commit();
 		sesion.close();
@@ -221,19 +213,27 @@ public class Funciones {
 	public static void verEquipoContratos() {
 		Session sesion = HibernateUtil.getSessionFactory().openSession();
 		sesion.beginTransaction();
-		org.hibernate.Query cons = sesion.createQuery("from Equipos e inner join e.contratos ");
-		Iterator q = ( cons).iterate();
-		System.out.println();
-		System.out.println();
-		while (q.hasNext()) {
-		Object[] par =(Object[]) q.next();
-		Equipos eq = (Equipos) par[0];
-		Contratos con = (Contratos) par[1];
-		
-		System.out.println("-------------------------------------------------------------------------");
-		System. out. println (eq.getDatos()+" "+con.getDatos()); 
+		Query cons = sesion.createQuery("from Equipos");
+		List<Equipos> equipos=cons.getResultList();
+		for (Equipos equipo : equipos) {
+			System.out.println(equipo.getNomEquipo());
+			for (Contratos contrato : equipo.getContratos()) {
+				System.out.println(contrato.getDatos());
+			}}
 		}
 		
+		public static void verContratosFutbolistas() {
+			Session sesion = HibernateUtil.getSessionFactory().openSession();
+			sesion.beginTransaction();
+			Query cons = sesion.createQuery("from Futbolistas");
+			List<Futbolistas> futbolistas=cons.getResultList();
+			for (Futbolistas futbolista: futbolistas) {
+				System.out.println(futbolista.getNombre());
+				for (Contratos contrato : futbolista.getContratos()) {
+					System.out.println(contrato.getDatos());
+				}
+			}
+			
 		sesion.getTransaction().commit();
 		sesion.close();
 	

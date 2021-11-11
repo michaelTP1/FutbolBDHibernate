@@ -30,11 +30,10 @@ public class Equipos implements Serializable {
 	private int codEquipo;
 	
 	@OneToOne (cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@PrimaryKeyJoinColumn 
 	private EquiposObservaciones equiposobservaciones;
 	
 	@OneToMany(cascade=CascadeType.ALL,
-			fetch=FetchType.LAZY, mappedBy="equipo")
+			fetch=FetchType.EAGER, mappedBy="equipo")
 			private List<Contratos> contratos = new ArrayList<Contratos>();
 	
 	@Column(columnDefinition="char(40)")

@@ -28,7 +28,14 @@ public class Futbolistas implements Serializable {
 	
 	@Column(length=40)
 	private String nacionalidad;
+	
 
+	
+
+	@OneToMany(cascade=CascadeType.ALL,	fetch=FetchType.EAGER, mappedBy="futbolista",
+			orphanRemoval = true)
+			private List<Contratos> contratos = new ArrayList<Contratos>();
+	
 	public List<Contratos> getContratos() {
 		return contratos;
 	}
@@ -36,9 +43,6 @@ public class Futbolistas implements Serializable {
 	public void setContratos(List<Contratos> contratos) {
 		this.contratos = contratos;
 	}
-
-	@OneToMany(cascade=CascadeType.ALL,	fetch=FetchType.EAGER, mappedBy="futbolista")
-			private List<Contratos> contratos = new ArrayList<Contratos>();
 	
 	public String getCoddnionie() {
 		return coddnionie;

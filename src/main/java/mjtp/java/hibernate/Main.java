@@ -88,6 +88,7 @@ public class Main {
 		Funciones.insertarEquipo(equipo2);
 		Funciones.insertarContratos(contrato1);
 		Funciones.insertarContratos(contrato2);
+		/*
 
 		Scanner entrada = new Scanner(System.in);
 		int valor = 0;
@@ -501,6 +502,8 @@ public class Main {
 			}
 			}
 		} while (valor != 4);
-
+*/
+		
+		Funciones.verContratosFutbolistas();
 	}
 }
